@@ -1,0 +1,1699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CSService" targetNamespace="http://ws.csa.tirea.es/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.csa.tirea.es/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:tns="http://ws.csa.tirea.es/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.csa.tirea.es/">
+  <xs:element name="csa-delService" type="tns:csa-delService"/>
+  <xs:element name="csa-delServiceResponse" type="tns:csa-delServiceResponse"/>
+  <xs:element name="csa-getAvailability" type="tns:csa-getAvailability"/>
+  <xs:element name="csa-getAvailabilityResponse" type="tns:csa-getAvailabilityResponse"/>
+  <xs:element name="csa-getOffer" type="tns:csa-getOffer"/>
+  <xs:element name="csa-getOfferResponse" type="tns:csa-getOfferResponse"/>
+  <xs:element name="csa-getPendingAppointment" type="tns:csa-getPendingAppointment"/>
+  <xs:element name="csa-getPendingAppointmentResponse" type="tns:csa-getPendingAppointmentResponse"/>
+  <xs:element name="csa-getService" type="tns:csa-getService"/>
+  <xs:element name="csa-getServiceResponse" type="tns:csa-getServiceResponse"/>
+  <xs:element name="csa-newNotification" type="tns:csa-newNotification"/>
+  <xs:element name="csa-newNotificationResponse" type="tns:csa-newNotificationResponse"/>
+  <xs:element name="csa-newService" type="tns:csa-newService"/>
+  <xs:element name="csa-newServiceResponse" type="tns:csa-newServiceResponse"/>
+  <xs:element name="csa-setService" type="tns:csa-setService"/>
+  <xs:element name="csa-setServiceResponse" type="tns:csa-setServiceResponse"/>
+  <xs:element name="errorEnv" type="tns:errorEnv"/>
+  <xs:complexType name="csa-newService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceRequest" type="tns:servicioAltaDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioAltaDto">
+    <xs:sequence>
+      <xs:element name="center_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Identificador de Centro. Cod. HUGP</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="sinister_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="sinister_data" type="tns:expSiniestrorDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle_data" type="tns:datosVehiculoDto"/>
+      <xs:element name="customer_data" type="tns:datosClienteAltaDto"/>
+      <xs:element name="appointment_data" type="tns:datosCitaAltaDto"/>
+      <xs:element name="insured_data" type="tns:datosAseguradoDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="expSiniestrorDto">
+    <xs:sequence>
+      <xs:element name="sinister_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Num. de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="sinister_date" type="xs:date">
+	  <xs:annotation><xs:documentation>Fecha de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="sinister_expedient" type="xs:long">
+	  <xs:annotation><xs:documentation>Num de expediente de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="authorization_level" type="xs:string">
+	  <xs:annotation><xs:documentation>Nivel de autorizacion</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="creation_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha de creacion del expediente</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosVehiculoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="number_plate" type="xs:string">
+	  <xs:annotation><xs:documentation>Matricula</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vin" type="xs:string">
+	  <xs:annotation><xs:documentation>Bastidor del vehiculo</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="brand" type="xs:string">
+	  <xs:annotation><xs:documentation>Marca de vehiculo</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="model" type="xs:string">
+	  <xs:annotation><xs:documentation>Modelo de vehiculo</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="color" type="xs:string">
+	  <xs:annotation><xs:documentation>Color</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vehicle_type_code" type="tns:vehicleTypeEnum">
+	  <xs:annotation><xs:documentation>Cod del tipo de vehiculo: 13=Turismo4P, 14=Turismo5P, 22=Todoterreno, 34=Monovolumen, 43=Ciclomotor, 45=Motocicleta, 52=Furgoneta, 63=Furgon, 72=Camion</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vehicle_type_desc" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion del tipo de vehiculo: 13=Turismo4P, 14=Turismo5P, 22=Todoterreno, 34=Monovolumen, 43=Ciclomotor, 45=Motocicleta, 52=Furgoneta, 63=Furgon, 72=Camion</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosClienteAltaDto">
+    <xs:sequence>
+      <xs:element name="document_type" type="tns:documentTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de tipo de documento. CIF: C.I.F., CIO: C.I.F.(OTROS PAISES), IND: INDETERMINADO, NIE: N.I.E., NIF: N.I.F., NIO: N.I.F.(OTROS PAISES), PAS: PASAPORTE</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="document_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Num. de documento </xs:documentation></xs:annotation></xs:element>
+      <xs:element name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="first_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Apellido 1</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="second_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Apellido 2</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Num. telefono</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="mobile_phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Movil</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="email" type="xs:string">
+	  <xs:annotation><xs:documentation>Direccion de correo electronico</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="send_sms" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Autoriza envio de SMS</xs:documentation></xs:annotation></xs:element>
+	  <xs:element minOccurs="0" name="address" type="tns:direccionCortaAltaDto">
+	  <xs:annotation><xs:documentation>Dirección</xs:documentation></xs:annotation></xs:element>	  
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="direccionCortaAltaDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="road_type" type="xs:string">
+	  <xs:annotation><xs:documentation>Tipo vía</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre vía</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="number" type="xs:string">
+	  <xs:annotation><xs:documentation>Número vía</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="postal_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Código Postal</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="locality" type="xs:string">
+	  <xs:annotation><xs:documentation>Localidad</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="province_code" type="xs:int">
+	  <xs:annotation><xs:documentation>Código provincia</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="datosCitaAltaDto">
+    <xs:sequence>
+	  <xs:element name="waiting_acceptance" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Lista de espera</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="appointment_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha de la cita. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="origin" type="tns:originTypeEnum">
+	  <xs:annotation><xs:documentation>Cod origen de la cita:
+1=Atenaus(CC),
+2=Atenaus (Oficinas)
+3=ACI
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="mobility_type" type="tns:mobilityTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de opciones de movilidad: 0=Ninguna, 1=Veh.Cortesia, 2=Veh.Sustitucion, 3=Bono, 4=BonoCarsharing, 5=Taxi</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosAseguradoDto">
+    <xs:sequence>
+      <xs:element name="contract_number" type="xs:string"><xs:annotation><xs:documentation>Num de poliza del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="insured_type" type="tns:customerTypeEnum"><xs:annotation><xs:documentation>Cod de tipo de asegurado: 1=Platino, 2=Oro, 3=Plata, 99=Sin valor cliente </xs:documentation></xs:annotation></xs:element>
+       <xs:element minOccurs="0" name="product_type_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Tipo de producto: Ejemplo: 00000119</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="product_type_desc" type="xs:string">
+      <xs:annotation><xs:documentation>Tipo de producto: Ejemplo: TODO RIESGO 100</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="insurance_company" type="tns:companyEnum"><xs:annotation><xs:documentation>Cod de entidad del asegurado: 1=Mapfre, 2=Santander</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string"><xs:annotation><xs:documentation>Nombre del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="first_surname" type="xs:string"><xs:annotation><xs:documentation>Primer apellido del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="second_surname" type="xs:string"><xs:annotation><xs:documentation>Segundo apellido del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="document_type" type="tns:documentTypeEnum"><xs:annotation><xs:documentation>Cod de tipo de documento del asegurado: CIF: C.I.F., CIO: C.I.F.(OTROS PAISES), IND: INDETERMINADO, NIE: N.I.E., NIF: N.I.F., 6IO: N.I.F.(OTROS PAISES), PAS: PASAPORTE</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="document_id" type="xs:string"><xs:annotation><xs:documentation></xs:documentation>Num Documento del asegurado</xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="franchise_amount" type="xs:string"><xs:annotation><xs:documentation>Importe/% de franquicia del asegurado. Obligatorio, para polizas con franquicia.</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="vs_cover" type="xs:boolean"><xs:annotation><xs:documentation>Indica si el asegurado tiene en la cobertura de la poliza VS</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vs_days_cover" type="xs:int"><xs:annotation><xs:documentation>Num de dias de VS a los que tiene derecho en cliente por cobertura de la poliza</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="number_plate" type="xs:string"><xs:annotation><xs:documentation>Matricula del asegurado</xs:documentation></xs:annotation></xs:element>
+     	  
+	</xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-newServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceResponse" type="tns:servicioIdDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioIdDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorEnvDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorEnv" type="tns:errorEnv"/>
+    </xs:sequence>
+  </xs:complexType>							 
+  <xs:complexType name="errorEnv">
+    <xs:sequence>
+	<xs:element  maxOccurs="100" name="errors" type="tns:errors"><xs:annotation><xs:documentation>Estructura con los detalles de los errores enviados por el componente que los origina en el sistema final.</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="codigo" type="xs:int"><xs:annotation><xs:documentation>El codigo del error</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="mensaje" type="xs:string"><xs:annotation><xs:documentation>Mensaje descriptivo del error</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="tipo" type="xs:string"><xs:annotation><xs:documentation>Tipo de error, puede tomar los valores: Fatal, Tecnico y Logico.</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="timestamp" type="xs:dateTime"><xs:annotation><xs:documentation>Fecha y hora a la que se recibio el error</xs:documentation></xs:annotation></xs:element>      
+      <xs:element minOccurs="0" name="contexto" type="xs:string"><xs:annotation><xs:documentation>Contexto en el que se produce el error</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="excepcion" type="xs:string"><xs:annotation><xs:documentation>Detalle de la excepcion</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="componente" type="xs:string"><xs:annotation><xs:documentation>Componente que recibe el error y que lo propagara.</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="aplicacion" type="xs:string"><xs:annotation><xs:documentation>Nombre de la aplicacion que genero el error.</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errors">
+    <xs:sequence>
+      <xs:element name="codigo" type="xs:string"><xs:annotation><xs:documentation>El codigo de error, segun el sistema que lo ha originado. </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="msg" type="xs:string"><xs:annotation><xs:documentation>El mensaje descriptivo de error, segun el sistema que lo ha originado. </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="component" type="xs:string"><xs:annotation><xs:documentation>Componente que genero el error.</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="rootcase" type="xs:string"><xs:annotation><xs:documentation>RootCause de la excepcion</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" maxOccurs="100" name="info" type="tns:errorParam"><xs:annotation><xs:documentation>Informacion adicional en formato clave/valor proporcionada por el sistema final y que sea util para el procesamiento del mensaje en el cliente del servicio</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorParam">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clave" type="xs:string"><xs:annotation><xs:documentation>Nombre del campo a propagar</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="valor" type="xs:string"><xs:annotation><xs:documentation>Valor del campo a propagar</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-setService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceRequest" type="tns:servicioModDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioModDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador del servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="sinister_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="sinister_data" type="tns:expSiniestrorModDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="appointment_data" type="tns:datosCitaModDto"/>
+      <xs:element minOccurs="0" name="insured_data" type="tns:datosAseguradoModDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="expSiniestrorModDto">
+    <xs:sequence>
+      <xs:element name="sinister_number" type="xs:string"><xs:annotation><xs:documentation>Num de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="sinister_date" type="xs:date"><xs:annotation><xs:documentation>Fecha de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="sinister_expedient" type="xs:long"><xs:annotation><xs:documentation>Num de expediente de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="authorization_level" type="xs:string"><xs:annotation><xs:documentation>Nivel de autorizacion</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="creation_date" type="xs:dateTime"><xs:annotation><xs:documentation>Fecha de creacion del expediente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="settlement_date" type="xs:dateTime"><xs:annotation><xs:documentation>Fecha de liquidacion del expediente</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosCitaModDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appointment_date" type="xs:dateTime">
+	  	<xs:annotation><xs:documentation>Fecha de la cita. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation>
+	  </xs:element>
+      <xs:element name="mobility_type" type="tns:mobilityTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de opciones de movilidad: 0=Ninguna, 1=Veh.Cortesia, 2=Veh.Sustitucion, 3=Bono, 4=BonoCarsharing, 5=Taxi</xs:documentation></xs:annotation>
+	  </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosAseguradoModDto">
+    <xs:sequence>
+      <xs:element name="contract_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Num de poliza del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="insured_type" type="tns:customerTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de tipo de asegurado: 1=Platino, 2=Oro, 3=Plata, 99=Sin valor cliente  </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="product_type_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Tipo de producto: Ejemplo: 00000119</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="product_type_desc" type="xs:string">
+      <xs:annotation><xs:documentation>Tipo de producto: Ejemplo: TODO RIESGO 100</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="insurance_company" type="tns:companyEnum">
+	  <xs:annotation><xs:documentation>Cod de entidad del asegurado: 1=Mapfre, 2=Santander</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="first_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Primer apellido del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="second_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Segundo apellido del asegurado</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="document_type" type="tns:documentTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de tipo de documento del asegurado: CIF: C.I.F., CIO: C.I.F.(OTROS PAISES), IND: INDETERMINADO, NIE: N.I.E., NIF: N.I.F., NIO: N.I.F.(OTROS PAISES), PAS: PASAPORTE</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="document_id" type="xs:string">
+	  <xs:annotation><xs:documentation></xs:documentation>Num Documento del asegurado</xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="franchise_amount" type="xs:string">
+	  <xs:annotation><xs:documentation>Importe/% de franquicia del asegurado. Obligatorio, para polizas con franquicia.</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="vs_cover" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Indica si el asegurado tiene en la cobertura de la poliza VS</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vs_days_cover" type="xs:int">
+	  <xs:annotation><xs:documentation>Num de dias de VS a los que tiene derecho en cliente por cobertura de la poliza</xs:documentation></xs:annotation></xs:element>
+	  
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-setServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceResponse" type="tns:servicioIdDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-delService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceRequest" type="tns:servicioBajaDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioBajaDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int">
+	  <xs:annotation><xs:documentation></xs:documentation>Identificador del servicio</xs:annotation></xs:element>
+      <xs:element name="cancellation_motive" type="xs:string">
+	  <xs:annotation><xs:documentation></xs:documentation>Motivo de la anulacion</xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-delServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceResponse" type="tns:servicioIdDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceRequest" type="tns:servicioIdDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ServiceResponse" type="tns:servicioResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="service_data" type="tns:datosServicioDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosServicioDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador del servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="warranty_interv" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Indica si se trata de un servicio de intervencion en garantia</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="original_service_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador de servicio sobre el que se ejerce la intervencion en garantia</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="entry_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha de alta del servicio. Date Time rfc3339 (ejemplo: 2020-05-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+	  <xs:element name="general_status_cod" type="xs:int">
+	  <xs:annotation><xs:documentation>Código estado del servicio: - 1-Abierto, - 2-Cancelado, - 3-Finalizado</xs:documentation></xs:annotation></xs:element>	  
+      <xs:element name="general_status" type="tns:generalStatusEnum">
+	  <xs:annotation><xs:documentation>Descripcion estado del servicio: - 1-Abierto, - 2-Cancelado, - 3-Finalizado</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="current_status_cod" type="xs:int">
+	  <xs:annotation><xs:documentation>Código estado actual del servicio:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+</xs:documentation></xs:annotation></xs:element>	  
+	  <xs:element name="current_status" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripción estado actual del servicio:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="current_substate_cod" type="xs:int">
+	  <xs:annotation><xs:documentation>Código subestado actual:
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+</xs:documentation></xs:annotation></xs:element>	  
+	  <xs:element minOccurs="0" name="current_substate" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion Subestado actual:
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="status_history_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="status_history" type="tns:historicoEstadoDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="center_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod del centro de servicio (Cod HUGP).</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="center_name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre del centro de servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>telefono del centro de servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="cancellation_motive" type="xs:string">
+	  <xs:annotation><xs:documentation>Motivo de cancelacion. Estara informado cuando el servicio se encuentre en estado anulado.
+Ejemplo de valores:
+- Error en la apertura del servicio
+- Error asignacion de proveedor
+- Sin proveedor adecuado para la reparacion
+- Otros
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="motive_WL" type="xs:string">
+	  <xs:annotation><xs:documentation>Motivo de lista de espera. 
+Estara informado cuando el servicio se encuentre en:
+     - En Espera de Aceptacion
+     - En Espera de VC
+     - En Espera de Recambios 
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="position_WL" type="xs:int">
+	  <xs:annotation><xs:documentation>Posicion que ocupa en la LE</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="expiration_date_WL" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha de vencimiento en la LE. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="priority_WL" type="tns:priorityWlEnum">
+	  <xs:annotation><xs:documentation>Cod de prioridad en la LE. 1=Normal, 2=Alta</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="mobility_type" type="tns:mobilityTypeEnum"><xs:annotation>
+	  <xs:documentation>Cod de tipo de movilidad:
+1=Veh.Cortesia,
+2=Veh.Sustitucion, 
+3=Taxi, 
+4=Bono,
+5=BonoCarsharing
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="mobility_description" type="xs:string"><xs:annotation><xs:documentation>Descripcion de tipo de movilidad:
+1=Veh.Cortesia,
+2=Veh.Sustitucion, 
+3=Taxi, 
+4=Bono,
+5=BonoCarsharing
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="customer_data" type="tns:datosClienteDto"/>
+	       
+	  <xs:element minOccurs="0" name="appointment_data_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="appointment_data" type="tns:datosCitaDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="cataloguing_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="cataloguing" type="tns:catalogacionDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+	  
+	  <xs:element minOccurs="0" name="orders">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="order_id" type="xs:int">
+			<xs:annotation><xs:documentation>Identificador del encargo en Gestaller</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="observations">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="observation" type="tns:observacionesDto">
+			<xs:annotation><xs:documentation>Observaciones</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="milestones">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="milestone" type="tns:hitosDto">
+			<xs:annotation><xs:documentation>Hito del taller</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="historicoEstadoDto">
+    <xs:sequence>
+	<xs:element name="status_cod" type="xs:int">
+	<xs:annotation><xs:documentation>Código estado histórico del servicio:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+</xs:documentation></xs:annotation></xs:element>	
+    <xs:element name="status" type="xs:string">	
+	<xs:annotation><xs:documentation>Descripción estado histórico del servicio:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+
+</xs:documentation></xs:annotation></xs:element>
+	  <xs:element minOccurs="0" name="substatus_cod" type="xs:int">
+	  <xs:annotation><xs:documentation>Codigo subestado historico del servicio
+1 - Rechazado Tecnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+</xs:documentation></xs:annotation></xs:element>	  
+      <xs:element minOccurs="0" name="substatus" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion subestado historico del servicio
+1 - Rechazado Tecnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha en la que el servicio paso a este estado. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="user" type="xs:string">
+	  <xs:annotation><xs:documentation>Usuario que paso a este estado</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosClienteDto">
+    <xs:sequence>
+      <xs:element name="document_type" type="tns:documentTypeEnum">
+	  <xs:annotation><xs:documentation>Tipos de doc segun el catalogo del RIC de MAPFRE:
+CIF: C.I.F.
+CIO: C.I.F.(OTROS PAISES)
+IND: INDETERMINADO
+NIE: N.I.E.
+NIF: N.I.F.
+NIO: N.I.F.(OTROS PAISES)
+PAS: PASAPORTE
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="document_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Num Documento del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="first_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Primer apellido del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="second_surname" type="xs:string">
+	  <xs:annotation><xs:documentation>Segundo apellido del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>telefono fijo del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="mobile_phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>telefono Movil del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="email" type="xs:string">
+	  <xs:annotation><xs:documentation>Correo electronico del cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="send_sms" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Check que indica si el cliente tiene autorizado el envio de sms.</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="address" type="tns:direccionCortaAseguradoDto">
+	  <xs:annotation><xs:documentation>Dirección del cliente</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="direccionCortaAseguradoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="road_type" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de tipo de via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="number" type="xs:int">
+	  <xs:annotation><xs:documentation>Num de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="postal_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod postal</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="locality" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de localidad</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="province_code" type="xs:int">
+	  <xs:annotation><xs:documentation>Cod de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="province" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>  
+  
+  <xs:complexType name="direccionCortaDto">
+    <xs:sequence>
+      <xs:element name="road_type" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de tipo de via</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="number" type="xs:int">
+	  <xs:annotation><xs:documentation>Num de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="postal_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod postal</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="locality" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de localidad</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="province_code" type="xs:int">
+	  <xs:annotation><xs:documentation>Cod de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="province" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosCitaDto">
+    <xs:sequence>
+      <xs:element name="appointment_type" type="tns:appointmentTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de tipo de cita:
+1=RVD, 
+2=EVS, 
+3=RVS,
+4=EVC,
+5=RVC,
+6=EVR,
+7=Cita IC (No aplica),
+8=Taxi Cita RVD,
+9=Taxi Cita EVR
+10=Entrega BonoCarsharing,
+11=Entrega Bono
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="status" type="tns:appointmentStatusEnum">
+	  <xs:annotation><xs:documentation>Cod de estado de la cita:
+1=Pendiente,
+2=Realizada, 
+3=Anulada
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="estimated_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha prevista de la cita Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="completition_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha realizacion de la cita. Para citas en estado 2 o 3. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="catalogacionDto">
+    <xs:sequence>
+      <xs:element name="type" type="tns:cataloguingTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de Tipo de catalogacion:
+1=Mapfre,
+2=Cliente,
+3=Taller,
+4=Interv.Garantia Taller,
+5=Interv.Garantia Centro,
+6=Interv.Garantia Expediente
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="sinister_expedient" type="xs:long">
+	  <xs:annotation><xs:documentation>Num de expediente de siniestro: No Estara informado en tipos: 2,3,4 y en algunos casos de 5</xs:documentation></xs:annotation></xs:element>
+     </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="observacionesDto">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime"><xs:annotation><xs:documentation>Fecha y hora en la que se registra la observacion. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="type" type="tns:observationTypeEnum"><xs:annotation><xs:documentation>Cod de observacion: Indica si la observacion se ha realizado sobre el Servicio o sobre un vehiculo de la Flota: VC/VS/VCSA
+1=Servicio
+2=Flota
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="motive" type="xs:string">
+	  <xs:annotation><xs:documentation>Motivo de la observacion</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="description" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de la observacion </xs:documentation></xs:annotation></xs:element>
+      <xs:element name="user" type="xs:string">
+	  <xs:annotation><xs:documentation>Usuario que crea la observacion</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hitosDto">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha del hito. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="milestone" type="xs:string">
+	  <xs:annotation><xs:documentation>Hito</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="newDate" type="xs:date">
+	  <xs:annotation><xs:documentation>Nueva fecha del hito. Formato yyyy-MM-dd</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="user" type="xs:string">
+	  <xs:annotation><xs:documentation>Nuuma cuando es un usuario CSA el que origina el hitoTaller + "" "" + Nombre del Taller cuando es un usuario de Gestaller </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="comments" type="xs:string">
+	  <xs:annotation><xs:documentation>Usuario que crea la observacion</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-newNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NotificationRequest" type="tns:notificacionDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="notificacionDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador del servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="sinister_expedient" type="xs:long">
+	  <xs:annotation><xs:documentation>Num del expediente de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="motive" type="xs:string">
+	  <xs:annotation><xs:documentation>Motivo de la notificacion</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="description" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de la notificacion</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="processor" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre y apellidos del tramitador</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="user" type="xs:string">
+	  <xs:annotation><xs:documentation>Usuario que realiza la notificacion</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-newNotificationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NotificationResponse" type="tns:notificacionIdResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="notificacionIdResponse">
+    <xs:sequence>
+      <xs:element name="notification_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador de la notificacion dada de alta</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getPendingAppointment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AppointmentFilterRequest" type="tns:citaFilterDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="citaFilterDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="number_plate" type="xs:string">
+	  <xs:annotation><xs:documentation>Matricula</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="vin" type="xs:string">
+	  <xs:annotation><xs:documentation>Bastidor</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getPendingAppointmentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AppointmentResponse" type="tns:citaResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="citaResponse">
+    <xs:sequence>
+      <xs:element name="pending_RVD" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Indica si el servicio tiene la RVD en estado Pendiente (no se ha hecho aun la catalogacion de danos). Este campo indica si existira lista o no. True: Hay lista, False: No hay lista </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="services_data">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="service" type="tns:servicioCitaDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="servicioCitaDto">
+    <xs:sequence>
+      <xs:element name="service_id" type="xs:int">
+	  <xs:annotation><xs:documentation>Identificador del servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="entry_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha del servicio. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="center_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod de centro del servicio (Cod HUGP)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="center_name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre de centro del servicio</xs:documentation></xs:annotation></xs:element>
+	  <xs:element minOccurs="0" name="address" type="tns:direccionCortaDto"/>
+      <xs:element name="estimated_date" type="xs:dateTime">
+	  <xs:annotation><xs:documentation>Fecha y hora prevista del servicio. Date Time rfc3339 (ejemplo: 2002-10-02T15:00:00Z)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="mobility_type" type="tns:mobilityTypeEnum">
+	  <xs:annotation><xs:documentation>Cod de Tipo de movilidad:
+ 0-Ninguna,
+ 1-Veh.Cortesia,
+ 2-Veh.Sustitucion,
+ 3-Bono,
+ 4-BonoCarsharing,
+ 5-Taxi
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="customer_data" type="tns:datosClienteDto">
+		<xs:annotation><xs:documentation>Datos cliente</xs:documentation></xs:annotation>
+	 </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getOffer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OfferFilterRequest" type="tns:ofrecimientoFilterDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ofrecimientoFilterDto">
+    <xs:sequence>
+      <xs:element name="entity" type="tns:companyEnum">
+	  <xs:annotation><xs:documentation>Tipo de entidad: 1=Mapfre, 2=Santander </xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="postal_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod. postal </xs:documentation></xs:annotation></xs:element>
+      <xs:element name="channel_type" type="tns:channelTypeEnum">
+	  <xs:annotation><xs:documentation>Tipo de canal: 1=Atenaus (CC), 2= Atenaus (Oficina), 3= ACI</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="customer_type" type="tns:customerTypeEnum">
+	  <xs:annotation><xs:documentation>Tipo de cliente: 1=Platino, 2=Oro, 3=Plata, 99=Sin valor cliente</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="sinister_list">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="100" name="sinister" type="tns:estadoExpSiniestroDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="veh_sustitution_policy" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Poliza con Veh. de sustitucion</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="personal_damage_policy" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Poliza con cobertura Danos Personales</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="you_choose_policy" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Poliza Tu Eliges</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="veh_can_circulate" type="xs:boolean">
+	  <xs:annotation><xs:documentation>El veh. puede circular o necesita grua</xs:documentation></xs:annotation></xs:element>
+	  <xs:element minOccurs="0" name="mobility_type" type="xs:int">
+	  <xs:annotation><xs:documentation>Tipos de movilidad</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="estadoExpSiniestroDto">
+    <xs:sequence>
+      <xs:element name="sinister_expedient" type="xs:long">
+	  <xs:annotation><xs:documentation>Num de expediente de siniestro</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="authorization_level" type="xs:string">
+	  <xs:annotation><xs:documentation>Nivel de autorización del expediente de siniestro</xs:documentation></xs:annotation></xs:element> 
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getOfferResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OfferResponse" type="tns:ofrecimientoResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ofrecimientoResponse">
+    <xs:sequence>
+      <xs:element name="centers"><xs:annotation><xs:documentation>Centros de Servicio que cumplen con los ofrecimientos</xs:documentation></xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" minOccurs="0" name="center" type="tns:centroServicioDto">
+			<xs:annotation><xs:documentation>Centro de Servicio</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="centroServicioDto">
+    <xs:sequence>
+      <xs:element name="center_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Codigo del centro de servicio (codigo HUGP)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="center_name" type="xs:string">
+	  <xs:annotation><xs:documentation>Nombre del centro de servicio</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="timetables">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="7" name="timetable" type="tns:horarioDto"><xs:annotation><xs:documentation>Horario por dia de la semana</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="address" type="tns:direccionDto">
+	  <xs:annotation><xs:documentation>Direccion del CS</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Telefono</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="mobile_phone_number" type="xs:string">
+	  <xs:annotation><xs:documentation>Movil</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="mobility_types">
+	  <xs:annotation><xs:documentation>Tipos de movilidad</xs:documentation></xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="100" name="mobility_type" type="tns:tipoDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="horarioDto">
+    <xs:sequence>
+      <xs:element name="weekday" type="tns:weekdayEnum">
+	  <xs:annotation><xs:documentation>Dia de la semana:1=Lunes, 2=Martes, 3=Miercoles, 4=Jueves, 5=Viernes, 6=Sabado, 7=Domingo</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="opening_time" type="xs:time">
+	  <xs:annotation><xs:documentation>Hora de apertura del CS. Formato: hh:mm:00</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="closing_time" type="xs:time">
+	  <xs:annotation><xs:documentation>Hora de cierre del CS. Formato: hh:mm:00</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="direccionDto">
+    <xs:sequence>
+      <xs:element name="road_type" type="xs:string">
+	  <xs:annotation><xs:documentation>Tipo de via</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="name" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="number" type="xs:string">
+	  <xs:annotation><xs:documentation>Num de la via</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="stairs" type="xs:string">
+	  <xs:annotation><xs:documentation>Escalera</xs:documentation>
+	  </xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="floor" type="xs:string">
+	  <xs:annotation><xs:documentation>Planta</xs:documentation></xs:annotation></xs:element>
+      <xs:element minOccurs="0" name="door" type="xs:string">
+	  <xs:annotation><xs:documentation>Puerta</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="locality" type="xs:string">
+	  <xs:annotation><xs:documentation>Localidad</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="province_code" type="xs:int">
+	  <xs:annotation><xs:documentation>Cod de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="province" type="xs:string">
+	  <xs:annotation><xs:documentation>Descripcion de provincia (ver tabla parametrica)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="postal_code" type="xs:string">
+	  <xs:annotation><xs:documentation>Cod postal</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tipoDto">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int"><xs:annotation><xs:documentation>Cod de Tipos de movilidad:
+1=Veh.Cortesia,
+2=Veh.Sustitucion, 
+3=Taxi, 
+4=Bono,
+5=BonoCarsharing
+</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="description" type="xs:string"><xs:annotation><xs:documentation>Descripcion de Tipos de movilidad:
+1=Veh.Cortesia,
+2=Veh.Sustitucion, 
+3=Taxi, 
+4=Bono,
+5=BonoCarsharing
+</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getAvailability">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailabilityFilterRequest" type="tns:disponibilidadFilterDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="disponibilidadFilterDto">
+    <xs:sequence>
+      <xs:element name="center_id" type="xs:string">
+	  <xs:annotation><xs:documentation>Codigo del centro de servicio (Cod HUGP)</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="search_date" type="xs:date">
+	  <xs:annotation><xs:documentation>Fecha de la busqueda. Formato: yyyy-mm-dd</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="search_days" type="xs:int">
+	  <xs:annotation><xs:documentation>dias de busqueda a partir de la fecha</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="with_vs" type="xs:boolean">
+	  <xs:annotation><xs:documentation>Disponibilidad con/sin VS</xs:documentation></xs:annotation></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="csa-getAvailabilityResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailabilityResponse" type="tns:disponibilidadResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="disponibilidadResponse">
+    <xs:sequence>
+      <xs:element name="available_dates">
+	  <xs:annotation><xs:documentation>Fechas disponibles para las condiciones de busqueda</xs:documentation></xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" minOccurs="0" name="date" type="tns:disponibilidadDto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="disponibilidadDto">
+    <xs:sequence>
+      <xs:element name="day" type="xs:date">
+	  <xs:annotation><xs:documentation>Dia disponible. Formato: yyyy-mm-dd</xs:documentation></xs:annotation></xs:element>
+      <xs:element name="available_hours">
+	  <xs:annotation><xs:documentation>Lista de horas</xs:documentation></xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1000" name="hours" type="xs:time">
+			<xs:annotation><xs:documentation>Hora. Formato: hh:mm:00</xs:documentation></xs:annotation></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="vehicleTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="13"/>
+      <xs:enumeration value="14"/>
+      <xs:enumeration value="22"/>
+      <xs:enumeration value="34"/>
+      <xs:enumeration value="43"/>
+	  <xs:enumeration value="45"/>
+      <xs:enumeration value="52"/>
+      <xs:enumeration value="63"/>
+      <xs:enumeration value="72"/>
+    </xs:restriction>
+  </xs:simpleType>
+ <xs:simpleType name="documentTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CIF"/>
+      <xs:enumeration value="CIO"/>
+      <xs:enumeration value="IND"/>
+      <xs:enumeration value="NIE"/>
+      <xs:enumeration value="NIF"/>
+      <xs:enumeration value="NIO"/>
+      <xs:enumeration value="PAS"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="originTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+	</xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="mobilityTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="customerTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+	  <xs:enumeration value="99"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="companyEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="generalStatusEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Abierto"/>
+      <xs:enumeration value="Cancelado"/>
+      <xs:enumeration value="Finalizado"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="priorityWlEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="appointmentTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+	  
+	  <xs:enumeration value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="appointmentStatusEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cataloguingTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="observationTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="channelTypeEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="weekdayEnum">
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CsaWebFaultException" type="tns:CsaWebFaultException"/>
+  <xs:complexType name="CsaWebFaultException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fault" type="tns:errorEnvDto"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+</wsdl:types>
+  <wsdl:message name="csa-newService">
+    <wsdl:part name="parameters" element="tns:csa-newService">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-newServiceResponse">
+    <wsdl:part name="parameters" element="tns:csa-newServiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-setService">
+    <wsdl:part name="parameters" element="tns:csa-setService">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-delService">
+    <wsdl:part name="parameters" element="tns:csa-delService">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getService">
+    <wsdl:part name="parameters" element="tns:csa-getService">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-newNotification">
+    <wsdl:part name="parameters" element="tns:csa-newNotification">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-setServiceResponse">
+    <wsdl:part name="parameters" element="tns:csa-setServiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getPendingAppointment">
+    <wsdl:part name="parameters" element="tns:csa-getPendingAppointment">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CsaWebFaultException">
+    <wsdl:part name="CsaWebFaultException" element="tns:CsaWebFaultException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-delServiceResponse">
+    <wsdl:part name="parameters" element="tns:csa-delServiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getPendingAppointmentResponse">
+    <wsdl:part name="parameters" element="tns:csa-getPendingAppointmentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-newNotificationResponse">
+    <wsdl:part name="parameters" element="tns:csa-newNotificationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getAvailability">
+    <wsdl:part name="parameters" element="tns:csa-getAvailability">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getServiceResponse">
+    <wsdl:part name="parameters" element="tns:csa-getServiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getOfferResponse">
+    <wsdl:part name="parameters" element="tns:csa-getOfferResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getAvailabilityResponse">
+    <wsdl:part name="parameters" element="tns:csa-getAvailabilityResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="csa-getOffer">
+    <wsdl:part name="parameters" element="tns:csa-getOffer">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CSService">
+    <wsdl:operation name="csa-newService">
+<wsdl:documentation>Alta de un servicio CSA</wsdl:documentation>
+      <wsdl:input name="csa-newService" message="tns:csa-newService">
+<wsdl:documentation>ServiceRequest:
+- center_id: Identificador del centro
+- claim_list: Listado de Exp. de Siniestro
+	- sinister_number: Num del Siniestro. La lista de danos de cada Num Exp. de Siniestro siempre ira asociada al mismo Siniestro, no existiran danos de 2 Num de Exp. asociados al mismo Siniestro
+	- sinister_date: Fecha del Siniestro: Nunca habra 2 Num Exp. de Siniestro en la misma fecha de siniestro, no se permite en captura
+	- sinister_expedient: Num del expediente de siniestro
+	- authorization_level: Nivel de autorización del expediente de siniestro
+	- creation_date: Fecha de apertura del Num Exp de Siniestro
+- vehicle_data: Datos del vehiculo
+	- number_plate: Matricula del vehiculo del cliente
+	- vin: Bastidor del vehiculo del cliente
+	- brand: Marca del vehiculo del cliente
+	- model: Modelo del vehiculo del cliente
+	- color: Color del vehiculo del cliente
+	- vehicle_type_code: Tipo de vehiculo (13=Turismo4P, 14=Turismo5P, 22=Todoterreno, 34=Monovolumen, 43=Ciclomotor, 45=Motocicleta, 52=Furgoneta, 63=Furgon, 72=Camion)
+	- vehicle_type_desc: Descripcion del tipo de vehiculo
+- customer_data: Datos del cliente
+	- document_type: Tipos de doc segun el catalogo del RIC de MAPFRE (CIF,CIO, IND, NIE, NIF, NIO, PAS)
+	- document_id: Num Documento del cliente
+	- name: Nombre del cliente
+	- first_surname: Primer apellido del cliente
+	- second_surname: Segundo apellido del cliente
+	- phone_number: telefono fijo del cliente
+	- mobile_phone_number: telefono Movil del cliente
+	- email: Correo electronico del cliente
+	- send_sms: Check que indica si el cliente tiene autorizado el envio de sms
+- appointment_data: Datos de la cita
+	- appointment_date: Fecha y hora de la cita
+	- origin: Origen de la cita (1-Atenaus(CC), 2-Atenaus(Oficinas), 3-ACI,4-Trames)
+	- mobility_type: Opciones de movilidad (0-Ninguna, 1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+- insured_data: Datos del asegurado
+	- contract_number: Num de poliza del asegurado
+	- insured_type: Tipo de asegurado (1-Platino, 2-Oro, 3-Plata, 99-Sin valor cliente)
+	- insurance_company: Entidad del asegurado (1-Mapfre, 2-Santander)
+	- name: Nombre del asegurado
+	- first_surname: Primer apellido del asegurado
+	- second_surname: Segundo apellido del asegurado
+	- document_type: Tipo de documento del asegurado (1-CIF, 2-CIO, 3-IND, 4-NIE, 5-NIF, 6-NIO, 7-PAS)
+	- document_id: Num Documento del asegurado
+	- franchise_amount: Importe/% de franquicia del asegurado. Obligatorio, para polizas con franquicia.
+	- vs_cover: Indica si el asegurado tiene en la cobertura de la poliza VS
+	- vs_days_cover: Num de dias de VS a los que tiene derecho en cliente por cobertura de la poliza
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-newServiceResponse" message="tns:csa-newServiceResponse">
+<wsdl:documentation>ServiceResponse
+- service_id: Identificador del servicio
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-setService">
+<wsdl:documentation>Modificacion de un servicio CSA</wsdl:documentation>
+      <wsdl:input name="csa-setService" message="tns:csa-setService">
+<wsdl:documentation>ServiceRequest:
+- center_id: Identificador del centro
+- claim_list: Listado de Exp. de Siniestro
+	- sinister_number: Num del Siniestro. La lista de danos de cada Num Exp. de Siniestro siempre ira asociada al mismo Siniestro, no existiran danos de 2 Num de Exp. asociados al mismo Siniestro
+	- sinister_date: Fecha del Siniestro: Nunca habra 2 Num Exp. de Siniestro en la misma fecha de siniestro, no se permite en captura
+	- sinister_expedient: Num del expediente de siniestro
+	- authorization_level: Nivel de autorización del expediente de siniestro
+	- creation_date: Fecha de apertura del Num Exp de Siniestro
+	- settlement_date: Fecha de liquidacion del Num de Exp. de Siniestro. Vendra informado cuando desde Trames se liquide un Num de Exp. de siniestro asociado al servicio
+- appointment_data: Datos de la cita
+	- appointment_date: Fecha y hora de la cita
+	- mobility_type: Opciones de movilidad (0-Ninguna, 1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+- insured_data: Datos del asegurado
+	- contract_number: Num de poliza del asegurado
+	- insured_type: Tipo de asegurado (1-Platino, 2-Oro, 3-Plata, 99-Sin valor cliente)
+	- insurance_company: Entidad del asegurado (1-Mapfre, 2-Santander)
+	- name: Nombre del asegurado
+	- first_surname: Primer apellido del asegurado
+	- second_surname: Segundo apellido del asegurado
+	- document_type: Tipo de documento del asegurado (1-CIF, 2-CIO, 3-IND, 4-NIE, 5-NIF, 6-NIO, 7-PAS)
+	- document_id: Num Documento del asegurado
+	- franchise_amount: Importe/% de franquicia del asegurado. Obligatorio, para polizas con franquicia.
+	- vs_cover: Indica si el asegurado tiene en la cobertura de la poliza VS
+	- vs_days_cover: Num de dias de VS a los que tiene derecho en cliente por cobertura de la poliza
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-setServiceResponse" message="tns:csa-setServiceResponse">
+<wsdl:documentation>ServiceResponse
+- service_id: Identificador del servicio
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-delService">
+<wsdl:documentation>Baja de un servicio CSA.</wsdl:documentation>
+      <wsdl:input name="csa-delService" message="tns:csa-delService">
+<wsdl:documentation>ServiceRequest:
+- service_id: Identificador del servicio
+- cancellation_motive: Motivo de la anulacion
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-delServiceResponse" message="tns:csa-delServiceResponse">
+<wsdl:documentation>ServiceResponse
+- service_id: Identificador del servicio
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getService">
+<wsdl:documentation>Consulta la informacion de un Servicio y un array con sus idEncargo en Gestaller</wsdl:documentation>
+      <wsdl:input name="csa-getService" message="tns:csa-getService">
+<wsdl:documentation>ServiceRequest:
+- service_id: Identificador del servicio
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-getServiceResponse" message="tns:csa-getServiceResponse">
+<wsdl:documentation>ServiceResponse
+- service_id: Identificador del servicio
+- warranty_interv: Indica si se trata de un servicio de intervencion en garantia
+- original_service_id: Identificador de servicio sobre el que se ejerce la intervencion en garantia
+- entry_date: Fecha de alta del servicio
+- general_status_cod: Codigo de estado del servicio (1 - Abierto, 2 - Cancelado, 3 - Finalizado)
+- general_status: Descripción del estado del servicio (1 - Abierto, 2 - Cancelado, 3 - Finalizado)
+- current_status_cod: Código de estado actual:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 -  Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+- current_status: Descripción de estado actual:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 -  Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+- current_substate_cod: Código del subestado actual:
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+- current_substate: Descripción del subestado actual:
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado
+- status_history: Historico de estados del servicio
+	- status_cod: Código de estado histórico:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+	- status: Descripcion de estado histórico:
+1 - Citado
+2 - En Espera de VC
+3 - En Espera de Aceptación
+4 - En Espera de Recambios
+5 - Anulado
+6 - Recepcionado
+7 - En taller
+8 - En reparación
+9 - Pendiente Inspección Técnico
+10 - Pendiente Contacto Cliente
+11 - Pendiente Inspección Cliente
+12 - Pendiente Liquidación
+13 - Liquidado con Cliente
+14 - Liquidado
+15 - Liquidado con alerta
+16 - Liquidado en espera de recambios
+17 - Rechazado Taller
+18 - Rechazado Técnico
+19 - Rechazado Cliente
+	- substatus_cod: Código de Subestado historico del servicio
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado	
+	- substatus: Descripcion del subestado historico del servicio
+1 - Rechazado Técnico
+2 - Rechazado Cliente
+3 - Liquidado con Cliente
+4 - No reparado	
+	- date: Fecha en la que el servicio paso a este estado
+	- user: Usuario que paso a este estado
+- center_id: Cod del centro de servicio
+- center_name: Nombre del centro de servicio
+- phone_number: telefono del centro de servicio
+- cancellation_motive: Estara informado cuando el servicio se encuentre en estado anulado
+- motive_WL: Estara informado cuando el servicio se encuentre en
+- position_WL: Posicion que ocupa en la LE
+- expiration_date_WL: Fecha de vencimiento en la LE
+- priority_WL: Prioridad en la LE (1-Normal, 2-Alta)
+- mobility_type: Cod de la opcion de movilidad asociada al Servicio (0-Ninguna, 1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+- mobility_description: Descripcion del tipo de movilidad
+- customer_data: Datos del cliente
+	- document_type: Tipos de doc segun el catalogo del RIC de MAPFRE (1-CIF, 2-CIO, 3-IND, 4-NIE, 5-NIF, 6-NIO, 7-PAS)
+	- document_id: Num Documento del cliente
+	- name: Nombre del cliente
+	- first_surname: Primer apellido del cliente
+	- second_surname: Segundo apellido del cliente
+	- phone_number: telefono fijo del cliente
+	- mobile_phone_number: telefono Movil del cliente
+	- email: Correo electronico del cliente
+	- send_sms: Check que indica si el cliente tiene autorizado el envio de sms
+	- address: Direccion del cliente
+		- road_type: Tipo de via
+		- name: Descripcion de la via
+		- number: Num de la via
+		- postal_code: Cod postal
+		- locality_code: Cod de localidad
+		- locality: Descripcion de localidad
+		- province_code: Cod de provincia
+		- province: Descripcion de provincia
+- appointment_data: Datos de la cita
+	- appointment_type: Tipo de cita (1-RVD, 2-EVR, 3-EVS, 4-RVS, 5-EVC, 6-RVC, 7-Taxi Cita RVD, 8-Taxi Cita EVR, 9-Entraga bono, 10-Entrega BonoCarsharing)
+	- status: Estado de la cita (1-Pendiente, 2-Realizada, 3-Anulada)
+	- estimated_date: Fecha prevista de la cita
+	- completition_date: Fecha realizacion de la cita (Para citas en estado 2 o 3)
+- cataloguing: Datos de la catalogacion
+	- type: Tipo de catalogacion (1-Mapfre, 2-Cliente, 3-Taller, 4-Interv.Garantia Taller, 5-Interv.Garantia Centro, 6-Interv.Garantia Expediente)
+	- sinister_expedient: Num de expediente de siniestro (No Estara informado en tipos: 2,3,4 y en algunos casos de 5)	
+- orders: Lista de encargos
+	- order_id: Identificador del encargo en Gestaller. Puede haber reparaciones (lunas y limpiezas especiales) sin encargo en GTM
+- observation: Observaciones de caracter publico que se hallan anadido al Servicio
+	- date: Fecha y hora en la que se registra la observacion
+	- type: Indica si la observacion se ha realizado sobre el Servicio o sobre un vehiculo de la Flota: VC/VS/VCSA
+	- motive: Motivo de la observacion
+	- description: Descripcion de la observacion
+	- user: Usuario que crea la observacion
+- milestone: Hito del taller
+	- date: Fecha del hito
+	- milestone: Hito
+	- newDate: Nueva fecha del hito
+	- user: Nuuma cuando es un usuario CSA el que origina el hito. Taller + ' ' + Nombre del Taller cuando es un usuario de Gestaller
+	- comments: Comentarios
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-newNotification">
+<wsdl:documentation>Alta de notificaciones</wsdl:documentation>
+      <wsdl:input name="csa-newNotification" message="tns:csa-newNotification">
+<wsdl:documentation>NotificationRequest:
+- service_id: Identificador del servicio
+- sinister_expedient: Num del expediente de siniestro
+- motive: Motivo de la notificacion
+- description: Descripcion de la notificacion
+- processor: Nombre y apellidos del tramitador
+- user: Usuario que realiza la notificacion
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-newNotificationResponse" message="tns:csa-newNotificationResponse">
+<wsdl:documentation>NotificationResponse
+- notification_id: Identificador de la notificacion dada de alta
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getPendingAppointment">
+<wsdl:documentation>Busqueda de citas RVD pendientes para una determinada matricula</wsdl:documentation>
+      <wsdl:input name="csa-getPendingAppointment" message="tns:csa-getPendingAppointment">
+<wsdl:documentation>AppointmentFilterRequest:
+- number_plate: Matricula del vehiculo del cliente para el que se quiere consultar si tiene o no citas RVD pendientes en CSA
+- vin: Bastidor del veh. Cliente
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-getPendingAppointmentResponse" message="tns:csa-getPendingAppointmentResponse">
+<wsdl:documentation>AppointmentResponse
+- pending_RVD: Identificador de la notificacion dada de alta
+- service_data: Datos del servicio
+	- service_id: Identificador del servicio
+	- entry_date: Fecha del servicio
+	- center_id: Cod de centro del servicio
+	- center_name: Nombre de centro del servicio
+	- address: Dirección del centro del servicio
+	- estimated_date: Fecha y hora prevista del servicio
+	- mobility_type: Tipo de movilidad (0-Ninguna, 1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getOffer">
+<wsdl:documentation>Listado de CS para un CP y caracteristicas de un determinado cliente.</wsdl:documentation>
+      <wsdl:input name="csa-getOffer" message="tns:csa-getOffer">
+<wsdl:documentation>OfferFilterRequest:
+- entity: Tipo de entidad (1=MAPFRE ESPANA, 74= SANTANDER MAPFRE)
+- postal_code: Cods postales
+- channel_type: Tipo de canal (1=Atenaus (CC), 2= Atenaus (Oficina), 3= ACI)
+- customer_type: Tipo de cliente (1-Platino, 2-Oro, 3-Plata, 99-Sin valor cliente)
+- sinister_list: Lista de expedientes de siniestro (Debe venir informado, al menos 1)
+	- sinister_expedient: Num del expediente
+	- authorized: Estado del expediente
+- veh_sustitution_policy: poliza con Veh. de Sustitucion
+- personal_dammage_policy: poliza con cobertura Danos Personales
+- you_chose_policy: poliza Tu Eliges
+- veh_can_circulate: El Veh puede circular o necesita grua
+- mobility_type (0-No precisa vehículo, 1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-getOfferResponse" message="tns:csa-getOfferResponse">
+<wsdl:documentation>CenterServiceResponse: Listado de centros de servicio que cumplen con los ofrecimientos
+- center_id: Cod del centro de servicio
+- center_name: Nombre del centro de servicio
+- timetables: Horario del centro
+	- weekday: Dia de la semana (1-Lunes, 2-Martes, 3-Miercoles, 4-Jueves, 5-Viernes, 6-Sabado, 7-Domingo)
+	- opening_time: Hora de apertura del CS
+	- closing_time: Hora de cierre del CS
+- address: Direccion del centro
+	- road_type: Tipo de via
+	- name: Descripcion de la via
+	- number: Num de la via
+	- stairs: Escalera
+	- floor: Planta, piso
+	- door: Puerta
+	- locality: Descripcion de localidad
+	- province_code: Cod de provincia
+	- province: Descripcion de provincia
+	- postal_code: Cod postal
+- phone_number: Num de telefono del centro
+- mobile_phone_number: Num de telefono Movil del centro
+- mobility_types: Soluciones de movilidad del centro
+	- code: Tipos de movilidad (1-Veh.Cortesia, 2-Veh.Sustitucion, 3-Bono, 4-BonoCarsharing, 5-Taxi)
+	- description: Descripcion de los tipos
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getAvailability">
+<wsdl:documentation>Disponibilidad de Fechas y Tramos.</wsdl:documentation>
+      <wsdl:input name="csa-getAvailability" message="tns:csa-getAvailability">
+<wsdl:documentation>AvailabilityFilterRequest:
+- center_id: Cod del centro de servicio
+- search_date: Fecha de la busqueda
+- search_days: dias de busqueda a partir de la fecha
+- with_vs: Disponibilidad con/sin VS
+</wsdl:documentation>
+    </wsdl:input>
+      <wsdl:output name="csa-getAvailabilityResponse" message="tns:csa-getAvailabilityResponse">
+<wsdl:documentation>AvailabilityResponse
+- available_dates: Fechas disponibles para las condiciones de busqueda
+	- day: Dia disponible
+	- available_hours: Horas disponibles
+</wsdl:documentation>
+    </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException" message="tns:CsaWebFaultException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ICSServiceServiceSoapBinding" type="tns:CSService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#csa_policy"/>
+    <wsdl:operation name="csa-newService">
+      <soap:operation soapAction="csa-newService" style="document"/>
+      <wsdl:input name="csa-newService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-newServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-setService">
+      <soap:operation soapAction="csa-setService" style="document"/>
+      <wsdl:input name="csa-setService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-setServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-delService">
+      <soap:operation soapAction="csa-delService" style="document"/>
+      <wsdl:input name="csa-delService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-delServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getService">
+      <soap:operation soapAction="csa-getService" style="document"/>
+      <wsdl:input name="csa-getService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-getServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-newNotification">
+      <soap:operation soapAction="csa-newNotification" style="document"/>
+      <wsdl:input name="csa-newNotification">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-newNotificationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getPendingAppointment">
+      <soap:operation soapAction="csa-getPendingAppointment" style="document"/>
+      <wsdl:input name="csa-getPendingAppointment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-getPendingAppointmentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getOffer">
+      <soap:operation soapAction="csa-getOffer" style="document"/>
+      <wsdl:input name="csa-getOffer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-getOfferResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="csa-getAvailability">
+      <soap:operation soapAction="csa-getAvailability" style="document"/>
+      <wsdl:input name="csa-getAvailability">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="csa-getAvailabilityResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CsaWebFaultException">
+        <soap:fault name="CsaWebFaultException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CSService">
+    <wsdl:port name="ICSServicePort" binding="tns:CSServiceSoapBinding">
+      <soap:address location="https://testws-csa.tirea.es/csaWs/CSService"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy wsu:Id="csa_policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sp13="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200802" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<sp:SignedEncryptedSupportingTokens>
+		<wsp:Policy>
+			<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+				<wsp:Policy>
+					<sp:WssUsernameToken10/>
+					<sp13:Created/>
+              		<sp13:Nonce/>
+				</wsp:Policy>
+			</sp:UsernameToken>
+		</wsp:Policy>
+	</sp:SignedEncryptedSupportingTokens>
+	<sp:TransportBinding>
+		<wsp:Policy>
+			<sp:AlgorithmSuite>
+				<wsp:Policy>
+					<sp:Basic128/>
+				</wsp:Policy>
+			</sp:AlgorithmSuite>
+			<!-- <sp:IncludeTimestamp /> -->
+			<sp:Layout>
+				<wsp:Policy>
+					<sp:Lax/>
+				</wsp:Policy>
+			</sp:Layout>
+			<sp:TransportToken>
+				<wsp:Policy>
+					<sp:HttpsToken RequireClientCertificate="false"/>
+				</wsp:Policy>
+			</sp:TransportToken>
+		</wsp:Policy>
+	</sp:TransportBinding>
+	<sp:Wss10/>
+</wsp:Policy>
+</wsdl:definitions>
